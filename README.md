@@ -1,4 +1,6 @@
-# Nexus Point Car(ds)
+# Nexus Point Car(ds) 
+
+## [Preview](https://nexus-point-cards.netlify.app)
 
 Small project created for Nexus Point using **Vue 2** and **scss**.
 
