@@ -100,10 +100,10 @@ export default {
   overflow: hidden;
 
   .card-top {
-    object-fit: cover;
     position: relative;
 
     .card-image {
+      object-fit: cover;
       width: 100%;
       height: 250px;
     }
