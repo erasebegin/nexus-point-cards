@@ -1,9 +1,9 @@
-# nexus-point-cards
+# Nexus Point Car(ds)
+
+Small project created for Nexus Point using **Vue 2** and **scss**.
 
 ## Project setup
-```
-yarn install
-```
+`yarn install` or just `yarn`
 
 ### Compiles and hot-reloads for development
 ```
@@ -19,6 +19,3 @@ yarn build
 ```
 yarn lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
