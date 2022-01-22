@@ -1,9 +1,20 @@
 <template>
   <div class="card-container">
     <div class="card-top">
-      <span class="classification">{{
-        car.advert_classification | capitalise
-      }}</span>
+      <div class="image-top">
+        <span class="classification">{{
+          car.advert_classification | capitalise
+        }}</span>
+        <div class="button-container">
+          <p>{{ `${currentImage + 1} of ${car.media_urls.length}` }}</p>
+          <button @click="decrement">
+            <img src="../assets/left.svg" alt="left arrow" />
+          </button>
+          <button @click="increment">
+            <img src="../assets/right.svg" alt="right arrow" />
+          </button>
+        </div>
+      </div>
       <div class="tags">
         <p
           v-for="(feature, index) in car.feature_classification[0].slice(0, 3)"
@@ -12,7 +23,11 @@
           {{ feature }}
         </p>
       </div>
-      <img :src="car.media_urls[0].thumb" />
+      <img
+        :src="car.media_urls[currentImage].thumb"
+        class="card-image"
+        :alt="car.name"
+      />
     </div>
     <div class="card-bottom">
       <div class="title-container">
@@ -43,11 +58,25 @@ export default {
     car: Object,
   },
   data() {
-    return { isStarred: false };
+    return { isStarred: false, currentImage: 0 };
   },
   methods: {
     toggle() {
       this.isStarred = !this.isStarred;
+    },
+    increment() {
+      if (this.currentImage < this.car.media_urls.length - 1) {
+        this.currentImage += 1;
+      } else {
+        this.currentImage = 0;
+      }
+    },
+    decrement() {
+      if (this.currentImage > 0) {
+        this.currentImage -= 1;
+      } else {
+        this.currentImage = this.car.media_urls.length - 1;
+      }
     },
   },
   filters: {
@@ -74,18 +103,52 @@ export default {
     object-fit: cover;
     position: relative;
 
-    img {
+    .card-image {
       width: 100%;
+      height: 250px;
     }
 
-    .classification {
+    .image-top {
       position: absolute;
-      border-radius: 0.5rem;
-      border: 1px solid #ffffff33;
-      background: var(--dark1);
-      color: white;
-      padding: 0.5rem;
-      margin: 0.625rem;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .classification {
+        border-radius: 0.5rem;
+        border: 1px solid #ffffff33;
+        background: var(--dark1);
+        color: white;
+        padding: 0.25rem 0.5rem;
+        margin: 0.625rem;
+        font-size: 1rem;
+      }
+
+      .button-container {
+        display: flex;
+        align-items: center;
+        margin-right: 0.625rem;
+
+        p {
+          color: white;
+          margin-right: 0.3125rem;
+        }
+
+        button {
+          border-radius: 0.5rem;
+          background-color: var(--dark1);
+          border: 1px solid #ffffff33;
+          width: 2rem;
+          height: 1.5rem;
+          margin-left: 0.3125rem;
+
+          img {
+            width: 0.5rem;
+            height: 0.5rem;
+          }
+        }
+      }
     }
 
     .tags {
@@ -149,17 +212,17 @@ export default {
     }
 
     .price-when-new {
-        margin: 0;
-        font-size: 0.75rem;
+      margin: 0;
+      font-size: 0.75rem;
 
-        .calculate-link {
-            color: var(--brand-primary);
-            text-decoration: none;
+      .calculate-link {
+        color: var(--brand-primary);
+        text-decoration: none;
 
-            &:hover {
-                text-decoration: underline;
-            }
+        &:hover {
+          text-decoration: underline;
         }
+      }
     }
   }
 }
